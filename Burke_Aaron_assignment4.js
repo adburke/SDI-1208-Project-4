@@ -6,18 +6,15 @@
 var stringLibrary = function () {
 	var isPhoneNumUS = function (str) {
 		var re = /\d{3}-\d{3}-\d{4}/;
-		var result = re.test(str);
-		return result;
+		return re.test(str);
 	};
 	var isEmailAddr = function (str) {
 		var re = /^\w+@[\w.\-]+\.[A-Za-z]{2,3}$/;
-		var result = re.test(str);
-		return result;
+		return re.test(str);
 	};
 	var isUrl = function (str) {
-		var re = /^(?:http|https):\/\/[\w\-_]+(?:\.[\w\-_]+)+[\w\-.,@?\^=%&:\/~\\+#]*$/;
-		var result = re.test(str);
-		return result;
+		var re = /^(?:http|https):/;
+		return re.test(str);
 	};
 	var splitStrUpper = function (str) {
 		var split = str.split(" ");
@@ -29,8 +26,7 @@ var stringLibrary = function () {
 		return result;
 	};
 	var swapSeparator = function (str,newSep) {
-		var result = str.replace(/\W/g,newSep);
-		return result;
+		return str.replace(/\W/g,newSep);
 	};
 	return {
 		"isPhoneNumUS" : isPhoneNumUS,
@@ -44,9 +40,13 @@ var stringLibrary = function () {
 
 // // Number Library
 var numberLibrary = function () {
-	var formatDecimal = function () {};
+	var formatDecimal = function (num,afterDecimal) {
+        return num.toFixed(afterDecimal);
+    };
 	var fuzzyNum = function () {};
 	var strToNum = function () {};
+    var timeBtDates = function () {};
+    var strToNum = function () {};
 	return {
 		"formatDecimal" : formatDecimal,
 		"fuzzyNum" : fuzzyNum,
@@ -85,7 +85,8 @@ console.log(stringLib.isUrl("http://test.com"));
 console.log(stringLib.splitStrUpper("aaron burke testing test"));
 console.log(stringLib.swapSeparator("a,b,c","/"));
 // Number Tests
-
+var numberLib = numberLibrary();
+console.log(numberLib.formatDecimal(2.112,2));
 // Array Tests
 var arrayList = ["Aaron","Angela", 1050, 1050, 1050, "Sarah",1050];
 var arrayLib = arrayLibrary();
