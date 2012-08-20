@@ -19,11 +19,24 @@ var stringLibrary = function () {
 		var result = re.test(str);
 		return result;
 	};
-	var swapSeparator = function () {};
+	var splitStrUpper = function (str) {
+		var split = str.split(" ");
+		var result = "";
+		for (var i = 0, j = split.length; i < j; i++){
+			var spNew = split[i].replace(split[i].charAt(0),(split[i].charAt(0)).toUpperCase());
+			result = result.concat(spNew + " ");
+		};
+		return result;
+	};
+	var swapSeparator = function (str,newSep) {
+		var result = str.replace(/\W/g,newSep);
+		return result;
+	};
 	return {
 		"isPhoneNumUS" : isPhoneNumUS,
 		"isEmailAddr" : isEmailAddr,
 		"isUrl" : isUrl,
+		"splitStrUpper" : splitStrUpper,
 		"swapSeparator" : swapSeparator
 
 	};
@@ -69,6 +82,8 @@ var stringLib = stringLibrary();
 console.log(stringLib.isPhoneNumUS("256-655-0016"));
 console.log(stringLib.isEmailAddr("test@test.com"));
 console.log(stringLib.isUrl("http://test.com"));
+console.log(stringLib.splitStrUpper("aaron burke testing test"));
+console.log(stringLib.swapSeparator("a,b,c","-"));
 // Number Tests
 
 // Array Tests
