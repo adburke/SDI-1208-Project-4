@@ -83,7 +83,7 @@ console.log(stringLib.isPhoneNumUS("256-655-0016"));
 console.log(stringLib.isEmailAddr("test@test.com"));
 console.log(stringLib.isUrl("http://test.com"));
 console.log(stringLib.splitStrUpper("aaron burke testing test"));
-console.log(stringLib.swapSeparator("a,b,c","-"));
+console.log(stringLib.swapSeparator("a,b,c","/"));
 // Number Tests
 
 // Array Tests
