@@ -19,14 +19,15 @@ var StringLibrary = function () {
 	var splitStrUpper = function (str) {		// Capitalize the first character of each word in a string
 		var split = str.split(" ");
 		var result = "";
-		for (var i = 0, j = split.length; i < j; i++){
+		for (var i = 0, j = split.length - 1; i != j; i++){
 			var spNew = split[i].replace(split[i].charAt(0),(split[i].charAt(0)).toUpperCase());
 			result = result.concat(spNew + " ");
 		};
 		return result;		// returns the modified string back
 	};
 	var swapSeparator = function (str,newSep) {		// Changes the separator to a new given separator ex. a,b,c -> a/b/c
-		return str.replace(/\W/g,newSep);
+		var re = /\W/g;
+		return str.replace(re,newSep);
 	};
 	
 	return {
@@ -89,7 +90,7 @@ var ArrayLibrary = function () {
 	var totalValNumInArray = function (array) { // Add up and total only numbers in an array
 		array.sort();
 		var total = 0;
-		for (var i = 0, j = array.length; i < j; i++) {
+		for (var i = 0, j = array.length - 1; i != j; i++) {
 			if (!isNaN(array[i])) {
 				total += array[i];
 			} else {
@@ -100,13 +101,13 @@ var ArrayLibrary = function () {
 	};
 	var sortKeyByValInArray = function (array,key) {  // Sort objects in an array by a specific keys value that each object contains
 		var holder = [];
-		for(var i =0, j = array.length; i < j; i++){
+		for(var i =0, j = array.length - 1; i != j; i++){
 			for(key in array[i]){
 				holder.push(array[i][key]);
 			};
 		};
 		holder.sort(function(a,b){return a-b});
-		for(var i =0, j = array.length; i < j; i++){
+		for(var i =0, j = array.length - 1; i != j; i++){
 			for(key in array[i]){
 				array[i][key] = holder[i];
 			};
@@ -115,7 +116,7 @@ var ArrayLibrary = function () {
 	};
 	var dupInArray = function (findItem,array) { // Finds index of duplicate items in an array *My own addition to the list
 		var holdIndex = [], index;
-		for (var i = 0, j = array.length; i < j; i++){
+		for (var i = 0, j = array.length - 1; i != j; i++){
 			if (array[i] === findItem){
 				index = array.indexOf(array[i],i);
 				holdIndex.push(index);
@@ -134,6 +135,11 @@ var ArrayLibrary = function () {
 };
 
 // Test Area
+
+// Found test data stating for (var i = 0, j = array.length - 1; i != j; i++) was faster than 
+//	for (var i = 0, j = array.length; i < j; i++)
+// using jsperf.com to test speed
+// http://jsperf.com/fors-vs-while/10
 
 // String Tests
 var stringLib = StringLibrary();
