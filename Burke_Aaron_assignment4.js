@@ -3,7 +3,7 @@
 // Project 4
 
 // String Library
-var stringLibrary = function () {
+var StringLibrary = function () {
 	var isPhoneNumUS = function (str) {		// Checks for a valid phone number
 		var re = /\d{3}-\d{3}-\d{4}/;
 		return re.test(str);		// boolean
@@ -40,7 +40,7 @@ var stringLibrary = function () {
 };
 
 // // Number Library
-var numberLibrary = function () {
+var NumberLibrary = function () {
 	var formatDecimal = function (num,afterDecimal) {		// Change a number to use a specific amount of decimal places
         return num.toFixed(afterDecimal);
     };
@@ -77,7 +77,7 @@ var numberLibrary = function () {
 };
 
 // Array Library
-var arrayLibrary = function () { 
+var ArrayLibrary = function () { 
 	var smValGNumInArray = function (array,num) { // Smallest value in array greater than a given number
 		array.sort(function(a,b){return a-b});
 		return array[array.indexOf(num) + 1];
@@ -136,7 +136,7 @@ var arrayLibrary = function () {
 // Test Area
 
 // String Tests
-var stringLib = stringLibrary();
+var stringLib = StringLibrary();
 console.log(stringLib.isPhoneNumUS("256-655-0016"));
 console.log(stringLib.isEmailAddr("test@test.com"));
 console.log(stringLib.isUrl("http://test.com"));
@@ -144,7 +144,7 @@ console.log(stringLib.splitStrUpper("aaron burke testing test"));
 console.log(stringLib.swapSeparator("a,b,c","/"));
 console.log(" ");
 // Number Tests
-var numberLib = numberLibrary();
+var numberLib = NumberLibrary();
 console.log(numberLib.formatDecimal(2.112,2));
 console.log(numberLib.fuzzyNum(10,9,50));
 var date1 = new Date(2012,9,22);
@@ -156,7 +156,7 @@ console.log(numberLib.strToNum("5678"));
 
 console.log(" ");
 // Array Tests
-var arrayLib = arrayLibrary();
+var arrayLib = ArrayLibrary();
 var numList = [1,5,9,10,12,2,4,8];
 console.log(arrayLib.smValGNumInArray(numList,2));
 console.log(arrayLib.lrgValLNumInArray(numList,10));
