@@ -162,9 +162,9 @@ console.log(arrayLib.smValGNumInArray(numList,2));
 console.log(arrayLib.lrgValLNumInArray(numList,10));
 var randomList = [10,"apple","orange",10,20,"n","x",8,"t","r",50,10,10,"apple","orange",10,20];
 console.log(arrayLib.totalValNumInArray(randomList));
-var arrayList = ["Aaron","Angela", 1050, 1050, 1050, "Sarah",1050,30,10];
-console.log(arrayLib.dupInArray(1050,arrayList));
 var arrayObjects = [{a:6},{a:1},{a:3},{a:5},{a:4},{a:7}];
 console.log(arrayLib.sortKeyByValInArray(arrayObjects,"a"));
+var arrayList = ["Aaron","Angela", 1050, 1050, 1050, "Sarah",1050,30,10];
+console.log(arrayLib.dupInArray(1050,arrayList))
 
 
