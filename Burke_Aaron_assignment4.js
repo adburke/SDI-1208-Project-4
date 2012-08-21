@@ -77,7 +77,29 @@ var numberLibrary = function () {
 };
 
 // Array Library
-var arrayLibrary = function () {
+var arrayLibrary = function () {   // Finds index of duplicate items in an array *My own addition to the list
+	var smValGNumInArray = function (array,num) {
+		array.sort(function(a,b){return a-b});
+		return array[array.indexOf(num) + 1];
+	};
+	var lrgValLNumInArray = function (array,num) {
+		array.sort(function(a,b){return a-b});
+		return array[array.indexOf(num) - 1];
+	};
+	var totalValNumInArray = function (array) {
+		array.sort();
+		var total = 0;
+		//console.log(array);
+		for (var i = 0, j = array.length; i < j; i++) {
+			if (!isNaN(array[i])) {
+				total += array[i];
+			} else {
+				break;
+			};
+		};
+		return total;
+	};
+	var sortKeyByValInArray = function () {};
 	var dupInArray = function (findItem,array) {
 		var holdIndex = [], index;
 		for (var i = 0, j = array.length; i < j; i++){
@@ -90,8 +112,11 @@ var arrayLibrary = function () {
 	};
 
 	return {
+		"smValGNumInArray" : smValGNumInArray,
+		"lrgValLNumInArray" : lrgValLNumInArray,
+		"totalValNumInArray" : totalValNumInArray,
+		"sortKeyByValInArray" : sortKeyByValInArray,
 		"dupInArray" : dupInArray
-
 	};
 };
 
@@ -112,14 +137,21 @@ console.log(numberLib.fuzzyNum(10,9,50));
 var date1 = new Date(2012,9,22);
 var date2 = new Date(2012,5,19);
 var timeConversion = numberLib.timeBtDates(date1.getTime(),date2.getTime());
-console.log("Difference in days: " + timeConversion[0] + " hours: " + timeConversion[1]);
+console.log("Difference in days: " + timeConversion[0] + ", in hours: " + timeConversion[1]);
 console.log(numberLib.strToNum("5678"));
 
 
 console.log(" ");
 // Array Tests
-var arrayList = ["Aaron","Angela", 1050, 1050, 1050, "Sarah",1050];
 var arrayLib = arrayLibrary();
+var numList = [1,5,9,10,12,2,4,8];
+console.log(arrayLib.smValGNumInArray(numList,2));
+console.log(arrayLib.lrgValLNumInArray(numList,10));
+var randomList = [10,"apple","orange",10,20,"n","x",8,"t","r",50,10,10,"apple","orange",10,20,"n","x",8,"t","r",50,10,10,"apple","orange",10,20,"n","x",8,"t","r",50,10,10,"apple","orange",10,20,"n","x",8,"t","r",50,10,10,"apple","orange",10,20,"n","x",8,"t","r",50,10,10,"apple","orange",10,20,"n","x",8,"t","r",50,10];
+console.time('timer');
+console.log(arrayLib.totalValNumInArray(randomList));
+console.timeEnd('timer');
+var arrayList = ["Aaron","Angela", 1050, 1050, 1050, "Sarah",1050];
 console.log(arrayLib.dupInArray(1050,arrayList));
 
 
