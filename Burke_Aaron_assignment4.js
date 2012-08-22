@@ -53,7 +53,7 @@ var StringLibrary = function () {
 var NumberLibrary = function () {
 	// Change a number to use a specific amount of decimal places
 	var formatDecimal = function (num,afterDecimal) {
-        return num.toFixed(afterDecimal);
+        return Number(num.toFixed(afterDecimal));
     };
     // Checks to see is the number above or below a number is within a certain percent
 	var fuzzyNum = function (num,compareNum,percent) {
