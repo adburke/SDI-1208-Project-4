@@ -64,11 +64,11 @@ var NumberLibrary = function () {
 			return true;
 		};
 	};
-	// Input two dates using (date(yyyy,mm,dd)).getTime()
+	// Input two dates using new Date(yyyy,mm,dd)
 	// Output format [Days,Hours,Minutes,Seconds] conversion for each at specific index shown
     var timeBtDates = function (date1,date2) {
 		var results = [];
-		var difference = (date1 > date2) ? date1 - date2 : date2 - date1;
+		var difference = (date1 > date2) ? date1.getTime() - date2.getTime() : date2.getTime() - date1.getTime();
 		results[3] = difference / 1000;
 		results[2] = results[3] / 60;
 		results[1] = results[2] / 60;
@@ -109,8 +109,6 @@ var ArrayLibrary = function () {
 		for (var i = 0, j = array.length; i < j; i++) {
 			if (!isNaN(array[i])) {
 				total += array[i];
-			} else {
-				break;
 			};
 		};
 		return total;
@@ -185,7 +183,7 @@ console.log(numberLib.fuzzyNum(10,5,50));
 console.log(numberLib.fuzzyNum(5,10,50));
 var date1 = new Date(2012,9,22);
 var date2 = new Date(2012,5,19);
-var timeConversion = numberLib.timeBtDates(date1.getTime(),date2.getTime());
+var timeConversion = numberLib.timeBtDates(date1,date2);
 console.log("Difference in days: " + timeConversion[0] + ", in hours: " + timeConversion[1]);
 console.log(numberLib.strToNum("5678"));
 console.log(" ");
