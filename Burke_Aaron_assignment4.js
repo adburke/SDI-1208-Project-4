@@ -4,28 +4,37 @@
 
 // String Library
 var StringLibrary = function () {
-	var isPhoneNumUS = function (str) {		// Checks for a valid phone number
+	// Checks for a valid phone number
+	// Returns boolean
+	var isPhoneNumUS = function (str) {
 		var re = /\d{3}-\d{3}-\d{4}/;
-		return re.test(str);		// boolean
+		return re.test(str);
 	};
-	var isEmailAddr = function (str) {		// Checks for a valid email address
+	// Checks for a valid email address
+	// Returns boolean
+	var isEmailAddr = function (str) {
 		var re = /^\w+@[\w.\-]+\.[A-Za-z]{2,3}$/;
-		return re.test(str);		// boolean
+		return re.test(str);
 	};
-	var isUrl = function (str) {		// Checks for a valid URL
+	// Checks for a valid URL
+	// Returns boolean
+	var isUrl = function (str) {
 		var re = /^(?:http|https):/;
-		return re.test(str);		// boolean
+		return re.test(str);
 	};
-	var splitStrUpper = function (str) {		// Capitalize the first character of each word in a string
+	// Capitalize the first character of each word in a string
+	// Returns modified string with the first letter capitalized in each word
+	var splitStrUpper = function (str) {
 		var split = str.split(" ");
 		var result = "";
-		for (var i = 0, j = split.length - 1; i != j; i++){
+		for (var i = 0, j = split.length; i < j; i++) {
 			var spNew = split[i].replace(split[i].charAt(0),(split[i].charAt(0)).toUpperCase());
 			result = result.concat(spNew + " ");
 		};
-		return result;		// returns the modified string back
+		return result;
 	};
-	var swapSeparator = function (str,newSep) {		// Changes the separator to a new given separator ex. a,b,c -> a/b/c
+	// Changes the separator to a new given separator ex. a,b,c -> a/b/c
+	var swapSeparator = function (str,newSep) {
 		var re = /\W/g;
 		return str.replace(re,newSep);
 	};
@@ -42,29 +51,33 @@ var StringLibrary = function () {
 
 // // Number Library
 var NumberLibrary = function () {
-	var formatDecimal = function (num,afterDecimal) {		// Change a number to use a specific amount of decimal places
+	// Change a number to use a specific amount of decimal places
+	var formatDecimal = function (num,afterDecimal) {
         return num.toFixed(afterDecimal);
     };
-	var fuzzyNum = function (num1,num2,percent) {		// Checks to see if two numbers are above or below a given percent
-		var percentage;
-		if(num1 > num2) {
-			percentage = (num2/num1)*100;
+    // Checks to see is the number above or below a number is within a certain percent
+	var fuzzyNum = function (num,compareNum,percent) {
+		var percentage = (num/compareNum) * 100;
+		if ((num >= compareNum && percentage >= percent) || (num < compareNum && percentage < percent)) {
+			return false;
 		} else {
-			percentage = (num1/num2)*100;
+			return true;
 		};
-		return (percentage >= percent) ? true : false;		// True is greater than or equal to : False is less than the given percentage
 	};
-    var timeBtDates = function (date1,date2) {  // Input two dates using (date(yyyy,mm,dd)).getTime()
-		var results = []; 
+	// Input two dates using (date(yyyy,mm,dd)).getTime()
+	// Output format [Days,Hours,Minutes,Seconds] conversion for each at specific index shown
+    var timeBtDates = function (date1,date2) {
+		var results = [];
 		var difference = (date1 > date2) ? date1 - date2 : date2 - date1;
 		results[3] = difference / 1000;
 		results[2] = results[3] / 60;
 		results[1] = results[2] / 60;
 		results[0] = results[1] / 24;
-		return results;  // format [Days,Hours,Minutes,Seconds] conversion for each at specific index shown
+		return results;
 		
     };
-    var strToNum = function (num){		// Changes a string "42" to an integer value 42
+    // Changes a string "x" to an integer value x
+    var strToNum = function (num) {
 		return Number(num);
     };
 
@@ -78,19 +91,22 @@ var NumberLibrary = function () {
 };
 
 // Array Library
-var ArrayLibrary = function () { 
-	var smValGNumInArray = function (array,num) { // Smallest value in array greater than a given number
-		array.sort(function(a,b){return a-b});
+var ArrayLibrary = function () {
+	// Smallest value in array greater than a given number
+	var smValGNumInArray = function (array,num) {
+		array.sort(function(a,b){return a-b;});
 		return array[array.indexOf(num) + 1];
 	};
-	var lrgValLNumInArray = function (array,num) { // Largest value in array less than a given number *My own addition to the list
-		array.sort(function(a,b){return a-b});
+	// Largest value in array less than a given number *My own addition to the list
+	var lrgValLNumInArray = function (array,num) {
+		array.sort(function(a,b){return a-b;});
 		return array[array.indexOf(num) - 1];
 	};
-	var totalValNumInArray = function (array) { // Add up and total only numbers in an array
+	// Add up and total only numbers in an array
+	var totalValNumInArray = function (array) {
 		array.sort();
 		var total = 0;
-		for (var i = 0, j = array.length - 1; i != j; i++) {
+		for (var i = 0, j = array.length; i < j; i++) {
 			if (!isNaN(array[i])) {
 				total += array[i];
 			} else {
@@ -99,25 +115,36 @@ var ArrayLibrary = function () {
 		};
 		return total;
 	};
-	var sortKeyByValInArray = function (array,key) {  // Sort objects in an array by a specific keys value that each object contains
+	// Sort objects in an array by a specific keys value that each object contains.
+	// If objects in array have a pattern like [{a:3},{a:1},{a:2},{b:3},{b:2},{b:1}]
+	//	showing keys in alphabetical order this function can put the values for either
+	//	set of keys sorted by numerical value.
+	var sortKeyByValInArray = function (array,givenKey) {
 		var holder = [];
-		for(var i =0, j = array.length - 1; i != j; i++){
-			for(key in array[i]){
-				holder.push(array[i][key]);
+		var index = [];
+		for (var i = 0, j = array.length; i < j; i++) {
+			for(key in array[i]) {
+				if (key === givenKey) {
+					holder.push(array[i][givenKey]);
+					index.push(i);
+				};
 			};
 		};
-		holder.sort(function(a,b){return a-b});
-		for(var i =0, j = array.length - 1; i != j; i++){
-			for(key in array[i]){
-				array[i][key] = holder[i];
+		holder.sort(function(a,b){return a-b;});
+		for (var i = 0, ii = index[i], jj = array.length; ii < jj; ii++, i++) {
+			for (key in array[ii]) {
+				if (key === givenKey) {
+					array[ii][givenKey] = holder[i];
+				};
 			};
 		};
 		return array;
 	};
-	var dupInArray = function (findItem,array) { // Finds index of duplicate items in an array *My own addition to the list
+	// Finds index of duplicate items in an array *My own addition to the list
+	var dupInArray = function (findItem,array) {
 		var holdIndex = [], index;
-		for (var i = 0, j = array.length - 1; i != j; i++){
-			if (array[i] === findItem){
+		for (var i = 0, j = array.length; i < j; i++) {
+			if (array[i] === findItem) {
 				index = array.indexOf(array[i],i);
 				holdIndex.push(index);
 			};
@@ -136,12 +163,12 @@ var ArrayLibrary = function () {
 
 // Test Area
 
-// Found test data stating for (var i = 0, j = array.length - 1; i != j; i++) was faster than 
-//	for (var i = 0, j = array.length; i < j; i++)
+// Loop speed testing
 // using jsperf.com to test speed
 // http://jsperf.com/fors-vs-while/10
 
 // String Tests
+console.log("String Tests");
 var stringLib = StringLibrary();
 console.log(stringLib.isPhoneNumUS("256-655-0016"));
 console.log(stringLib.isEmailAddr("test@test.com"));
@@ -149,28 +176,32 @@ console.log(stringLib.isUrl("http://test.com"));
 console.log(stringLib.splitStrUpper("aaron burke testing test"));
 console.log(stringLib.swapSeparator("a,b,c","/"));
 console.log(" ");
+
 // Number Tests
+console.log("Number Tests");
 var numberLib = NumberLibrary();
-console.log(numberLib.formatDecimal(2.112,2));
-console.log(numberLib.fuzzyNum(10,9,50));
+console.log(numberLib.formatDecimal(2.116,2));
+console.log(numberLib.fuzzyNum(10,5,50));
+console.log(numberLib.fuzzyNum(5,10,50));
 var date1 = new Date(2012,9,22);
 var date2 = new Date(2012,5,19);
 var timeConversion = numberLib.timeBtDates(date1.getTime(),date2.getTime());
 console.log("Difference in days: " + timeConversion[0] + ", in hours: " + timeConversion[1]);
 console.log(numberLib.strToNum("5678"));
-
-
 console.log(" ");
+
 // Array Tests
+console.log("Array Tests");
 var arrayLib = ArrayLibrary();
 var numList = [1,5,9,10,12,2,4,8];
 console.log(arrayLib.smValGNumInArray(numList,2));
 console.log(arrayLib.lrgValLNumInArray(numList,10));
 var randomList = [10,"apple","orange",10,20,"n","x",8,"t","r",50,10,10,"apple","orange",10,20];
 console.log(arrayLib.totalValNumInArray(randomList));
-var arrayObjects = [{a:6},{a:1},{a:3},{a:5},{a:4},{a:7}];
-console.log(arrayLib.sortKeyByValInArray(arrayObjects,"a"));
+var arrayObjects = [{a:6},{a:1},{a:8},{a:2},{a:3},{a:5},{a:4},{a:7},{b:3},{b:5},{b:1},{b:4},{b:2},{b:6},{c:3},{c:5},{c:1},{c:4},{c:2},{c:6}];
+console.log(arrayLib.sortKeyByValInArray(arrayObjects,"b"));
 var arrayList = ["Aaron","Angela", 1050, 1050, 1050, "Sarah",1050,30,10];
-console.log(arrayLib.dupInArray(1050,arrayList))
+console.log(arrayLib.dupInArray(1050,arrayList));
+
 
 
