@@ -130,29 +130,8 @@ var ArrayLibrary = function () {
 		return total;
 	};
 	// Sort objects in an array by a specific keys value that each object contains.
-	// If objects in array have a pattern like [{a:3},{a:1},{a:2},{b:3},{b:2},{b:1}]
-	//	showing keys in alphabetical order this function can put the values for either
-	//	set of keys sorted by numerical value.
 	var sortKeyByValInArray = function (array,givenKey) {
-		var holder = [];
-		var index = [];
-		for (var i = 0, j = array.length; i < j; i++) {
-			for(key in array[i]) {
-				if (key === givenKey) {
-					holder.push(array[i][givenKey]);
-					index.push(i);
-				};
-			};
-		};
-		holder.sort(function(a,b){return a-b;});
-		for (var i = 0, ii = index[i], jj = array.length; ii < jj; ii++, i++) {
-			for (key in array[ii]) {
-				if (key === givenKey) {
-					array[ii][givenKey] = holder[i];
-				};
-			};
-		};
-		return array;
+		return (array.sort(function(a,b){return a[givenKey] - b[givenKey];}));
 	};
 	// Finds index of duplicate items in an array *My own addition to the list
 	var dupInArray = function (findItem,array) {
@@ -213,7 +192,7 @@ console.log(arrayLib.lrgValLNumInArray(numList,6));
 var randomList = [10,"apple","orange",10,20,"n","x",8,"t","r",50,10,10,"apple","orange",10,20];
 console.log(arrayLib.totalValNumInArray(randomList));
 var arrayObjects = [{a:6},{a:1},{a:8},{a:2},{a:3},{a:5},{a:4},{a:7},{b:3},{b:5},{b:1},{b:4},{b:2},{b:6},{c:3},{c:5},{c:1},{c:4},{c:2},{c:6}];
-console.log(arrayLib.sortKeyByValInArray(arrayObjects,"b"));
+console.log(arrayLib.sortKeyByValInArray(arrayObjects,"a"));
 var arrayList = ["Aaron","Angela", 1050, 1050, 1050, "Sarah",1050,30,10];
 console.log(arrayLib.dupInArray(1050,arrayList));
 
