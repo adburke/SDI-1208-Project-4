@@ -93,14 +93,30 @@ var NumberLibrary = function () {
 // Array Library
 var ArrayLibrary = function () {
 	// Smallest value in array greater than a given number
+	// Returns an array with index 0 being the number and index 1 being the amount of difference
+	// null is returned if the number is not within the range of numbers in the array
 	var smValGNumInArray = function (array,num) {
 		array.sort(function(a,b){return a-b;});
-		return array[array.indexOf(num) + 1];
+		var diffHolder = [];
+		for (var i = 0, j = array.length; i < j; i++) {
+			if (array[i] > num) {
+				diffHolder.push([ array[i], (array[i] - num) ]);
+			};
+		};
+		return (diffHolder[0] === undefined) ? null : diffHolder[0];
 	};
 	// Largest value in array less than a given number *My own addition to the list
+	// Returns an array with index 0 being the number and index 1 being the amount of difference
+	// null is returned if the number is not within the range of numbers in the array
 	var lrgValLNumInArray = function (array,num) {
 		array.sort(function(a,b){return a-b;});
-		return array[array.indexOf(num) - 1];
+		var diffHolder = [];
+		for (var i = 0, j = array.length; i < j; i++) {
+			if (array[i] < num) {
+				diffHolder.push([ (num - array[i]), array[i] ]);
+			};
+		};
+		return (diffHolder[0] === undefined) ? null : diffHolder[0];
 	};
 	// Add up and total only numbers in an array
 	var totalValNumInArray = function (array) {
@@ -192,8 +208,10 @@ console.log(" ");
 console.log("Array Tests");
 var arrayLib = ArrayLibrary();
 var numList = [1,5,9,10,12,2,4,8];
-console.log(arrayLib.smValGNumInArray(numList,2));
-console.log(arrayLib.lrgValLNumInArray(numList,10));
+var greaterNum = (arrayLib.smValGNumInArray(numList,3));
+console.log(greaterNum[0]);
+var lesserNum = (arrayLib.lrgValLNumInArray(numList,2));
+console.log(lesserNum[0]);
 var randomList = [10,"apple","orange",10,20,"n","x",8,"t","r",50,10,10,"apple","orange",10,20];
 console.log(arrayLib.totalValNumInArray(randomList));
 var arrayObjects = [{a:6},{a:1},{a:8},{a:2},{a:3},{a:5},{a:4},{a:7},{b:3},{b:5},{b:1},{b:4},{b:2},{b:6},{c:3},{c:5},{c:1},{c:4},{c:2},{c:6}];
