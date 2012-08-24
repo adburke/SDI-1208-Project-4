@@ -119,11 +119,11 @@ var ArrayLibrary = function () {
 		};
 	};
 	// Add up and total only numbers in an array
+	// edited to not use !isNaN because a string number ex. "10" would return as a number not a string
 	var totalValNumInArray = function (array) {
-		array.sort();
 		var total = 0;
 		for (var i = 0, j = array.length; i < j; i++) {
-			if (!isNaN(array[i])) {
+			if (array[i]/1 === array[i]) {
 				total += array[i];
 			};
 		};
@@ -189,7 +189,7 @@ var arrayLib = ArrayLibrary();
 var numList = [1,5,9,10,12,2,4,8];
 console.log(arrayLib.smValGNumInArray(numList,1));
 console.log(arrayLib.lrgValLNumInArray(numList,6));
-var randomList = [10,"apple","orange",10,20,"n","x",8,"t","r",50,10,10,"apple","orange",10,20];
+var randomList = [10,"apple","orange",10,20,"10"];
 console.log(arrayLib.totalValNumInArray(randomList));
 var arrayObjects = [{a:6},{a:1},{a:8},{a:2},{a:3},{a:5},{a:4},{a:7},{b:3},{b:5},{b:1},{b:4},{b:2},{b:6},{c:3},{c:5},{c:1},{c:4},{c:2},{c:6}];
 console.log(arrayLib.sortKeyByValInArray(arrayObjects,"a"));
